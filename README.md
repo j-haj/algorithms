@@ -1,4 +1,5 @@
 # heap
+[![Build Status](https://travis-ci.org/j-haj/heap.svg?branch=master)](https://travis-ci.org/j-haj/heap)
 Heap and heap sort implementations in Go
 
 ## Heap
