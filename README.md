@@ -1,7 +1,10 @@
-# heap
-[![Build Status](https://travis-ci.org/j-haj/heap.svg?branch=master)](https://travis-ci.org/j-haj/heap)
-Heap and heap sort implementations in Go
+# algorithms
+[![Build Status](https://travis-ci.org/j-haj/algorithms.svg?branch=master)](https://travis-ci.org/j-haj/algorithms)
 
-## Heap
-Heap package contains Heap creation for both min and max heaps as well
-as an implementation of heapsort.
+## Summary
+algorithms is a package that contains common algorithms and data structures
+written in Go.
+
+## Contents
+
+Heap - contains max and min heap creating as well as a heapsort algorithm.

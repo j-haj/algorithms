@@ -1,5 +1,5 @@
 // Heap contains functions for creating min and max heaps as well as an implementation of heapsort
-package algorithms
+package heap
 
 // Heapsort is an implementation of the heapsort algorithm. Set ascending to true
 // if the passed elements should be sorted smallest to largest and set ascending

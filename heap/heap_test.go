@@ -1,7 +1,7 @@
 package heap_test
 
 import (
-	"github.com/j-haj/algorithms"
+	"github.com/j-haj/algorithms/heap"
 	"testing"
 )
 
