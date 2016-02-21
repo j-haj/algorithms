@@ -30,11 +30,11 @@ func Heapsort(elements []int, ascending bool) []int {
 }
 
 func leftIndex(index int) int {
-	return index*2 + 1
+	return index<<1 + 1
 }
 
 func rightIndex(index int) int {
-	return (index + 1) * 2
+	return (index + 1) << 1
 }
 
 // Heapify the given max-heap at the specified index
