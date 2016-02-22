@@ -11,7 +11,6 @@ func Heapsort(elements []int, ascending bool) []int {
 
 	if ascending {
 		heap = CreateMinHeap(elements)
-
 	} else {
 		heap = CreateMaxHeap(elements)
 	}
@@ -19,10 +18,11 @@ func Heapsort(elements []int, ascending bool) []int {
 	index := 0
 	for len(heap) > 0 {
 		sortedElements[index] = heap[0]
+		heap[0], heap[len(heap)-1] = heap[len(heap)-1], heap[0]
 		if ascending {
-			heap = CreateMinHeap(heap[1:])
+			heap = HeapifyMin(heap[:len(heap)-1], 0)
 		} else {
-			heap = CreateMaxHeap(heap[1:])
+			heap = HeapifyMax(heap[:len(heap)-1], 0)
 		}
 		index++
 	}

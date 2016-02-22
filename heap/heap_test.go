@@ -53,10 +53,10 @@ func TestHeapsortMin(t *testing.T) {
 
 	for i := 0; i < len(test1); i++ {
 		if res1[i] != test2[i] {
-			t.Error("Heapsort min to max failed.")
+			t.Errorf("Heapsort min to max failed.\nExpected: %v\nActual: %v", test2, res1)
 		}
 		if res2[i] != test1[i] {
-			t.Error("Heapsort max to min failed")
+			t.Errorf("Heapsort max to min failed.\nExpected: %v\nAcutal: %v", test1, res2)
 		}
 	}
 }
