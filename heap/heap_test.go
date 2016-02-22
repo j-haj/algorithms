@@ -1,3 +1,4 @@
+// Handles testing for heapify and heapsort
 package heap_test
 
 import (
@@ -5,6 +6,7 @@ import (
 	"testing"
 )
 
+// Tests
 func TestHeapifyMax(t *testing.T) {
 	expectedHeap := []int{16, 14, 10, 8, 7, 9, 3, 2, 4, 1}
 	testHeap := []int{14, 16, 10, 8, 7, 9, 3, 2, 4, 1}
@@ -58,5 +60,53 @@ func TestHeapsortMin(t *testing.T) {
 		if res2[i] != test1[i] {
 			t.Errorf("Heapsort max to min failed.\nExpected: %v\nAcutal: %v", test1, res2)
 		}
+	}
+}
+
+// -----------------------------------------------------------
+//
+// Benchmarks
+//
+// -----------------------------------------------------------
+
+func BenchmarkHeapifyMax(b *testing.B) {
+	testHeap := []int{14, 16, 10, 8, 7, 9, 3, 2, 4, 1}
+	for i := 0; i < b.N; i++ {
+		heap.HeapifyMax(testHeap, 0)
+	}
+}
+
+func BenchmarkHeapifyMin(b *testing.B) {
+	testHeap := []int{3, 2, 1, 4, 5, 6, 7}
+	for i := 0; i < b.N; i++ {
+		heap.HeapifyMin(testHeap, 0)
+	}
+}
+
+func BenchmarkCreateMaxHeap(b *testing.B) {
+	initialElements := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+	for i := 0; i < b.N; i++ {
+		heap.CreateMaxHeap(initialElements)
+	}
+}
+
+func BenchmarkCreateMinHeap(b *testing.B) {
+	initialElements := []int{15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+	for i := 0; i < b.N; i++ {
+		heap.CreateMinHeap(initialElements)
+	}
+}
+
+func BenchmarkHeapsortMin(b *testing.B) {
+	test := []int{15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+	for i := 0; i < b.N; i++ {
+		heap.Heapsort(test, true)
+	}
+}
+
+func BenchmarkHeapsortMax(b *testing.B) {
+	test := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+	for i := 0; i < b.N; i++ {
+		heap.Heapsort(test, false)
 	}
 }
