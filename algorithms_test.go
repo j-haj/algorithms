@@ -27,3 +27,18 @@ func TestPartition2(t *testing.T) {
 		}
 	}
 }
+
+func TestRandPartition1(t *testing.T) {
+	test := []int{3, 7, 6, 5, 4, 2, 1}
+	expected := []int{3, 1, 2, 5, 4, 6, 7}
+	p := randPartition(test)
+	if p != 5 {
+		t.Fatalf("expected p = 5, got p  = %d\n", p)
+	}
+	for i := 0; i < len(test); i++ {
+		if test[i] != expected[i] {
+			t.Fatalf("expected test[%d] = %d, got test[%d] = %d\n",
+				i, expected[i], i, test[i])
+		}
+	}
+}
