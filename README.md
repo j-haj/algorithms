@@ -8,4 +8,7 @@ written in Go.
 
 ## Contents
 
+*algorithms* itsself currently contains a quicksort implementation along with a
+random parition implementation. This will eventually grow.
+
 Heap - contains max and min heap creating as well as a heapsort algorithm.
