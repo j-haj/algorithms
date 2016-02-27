@@ -7,28 +7,6 @@ import (
 	"math/rand"
 )
 
-func main() {
-	test := []int{3, 7, 6, 5, 4, 2, 1}
-	fmt.Printf("test1: %v\n", test)
-	p := randPartition(test)
-	fmt.Printf("result1: %v\n", test)
-	if isPartitioned(test, p) {
-		fmt.Printf("test1 is partitioned at %d\n", p)
-	} else {
-		fmt.Println("test1 is not partitioned")
-	}
-
-	test2 := []int{4, 8, 7, 6, 5, 3, 2, 1}
-	fmt.Printf("test2: %v\n", test2)
-	p = randPartition(test2)
-	fmt.Printf("result2: %v\n", test2)
-	if isPartitioned(test2, p) {
-		fmt.Printf("test2 is partitioned at %d\n", p)
-	} else {
-		fmt.Println("test2 is not partitioned")
-	}
-}
-
 // isPartitioned checks that all elements less than the index specified by p
 // are less than or equal to v[p] and all elements greater than the index p
 // are greater than or equal to v[p]
@@ -62,8 +40,12 @@ func partition(v []int) int {
 		if i >= j {
 			return j
 		}
+		if v[i] == v[j] {
+			j--
+		}
 		v[i], v[j] = v[j], v[i]
 	}
+	return j
 }
 
 // similar to partition but instead of choosing the right most element as
@@ -85,11 +67,40 @@ func randPartition(v []int) int {
 		if i >= j {
 			return j
 		}
+		if v[i] == v[j] {
+			j--
+		}
 		v[i], v[j] = v[j], v[i]
 	}
 }
 
 // Quicksort implementation using parition
 func Quicksort(v []int) {
+	p := partition(v)
+	if len(v) == 2 {
+		return
+	}
+	fmt.Printf("p: %d\nv: %v\n", p, v)
+	fmt.Println("Starting left recursive call...")
+	if p > 0 {
+		Quicksort(v[:p])
+	}
+	fmt.Println("Starting right recursive call...")
+	if p < len(v)-1 {
+		Quicksort(v[p+1:])
+	}
+}
 
+// StaticQuicksort is quicksort using the first element as the partition
+func StaticQuicksort(v []int) {
+	p := partition(v)
+	if len(v) == 2 {
+		return
+	}
+	if p > 0 {
+		StaticQuicksort(v[:p])
+	}
+	if p < len(v)-1 {
+		StaticQuicksort(v[p+1:])
+	}
 }

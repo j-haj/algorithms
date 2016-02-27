@@ -42,3 +42,14 @@ func TestRandPartition1(t *testing.T) {
 		}
 	}
 }
+
+func TestQuicksort(t *testing.T) {
+	test := []int{6, 5, 1, 3, 9, 2, 8, 6, 6, 5}
+	expected := []int{1, 2, 3, 5, 5, 6, 6, 6, 8, 9}
+	Quicksort(test)
+	for i := 0; i < len(test); i++ {
+		if test[i] != expected[i] {
+			t.Fatalf("expected test[%d] = %d; got test[%d] = %d\n", i, test[i], i, expected[i])
+		}
+	}
+}
