@@ -7,6 +7,16 @@ import (
 	"math/rand"
 )
 
+// Sortable is an interface for data that is sortable. It works by defining
+// functions for getting the data length, determining the order of two data
+// items given their indices, and a swap functiont that swaps the items
+// at the given indices.
+type Sortable interface {
+	Len() int
+	Less(i, j int) bool
+	Swap(i, j int)
+}
+
 // isPartitioned checks that all elements less than the index specified by p
 // are less than or equal to v[p] and all elements greater than the index p
 // are greater than or equal to v[p]
