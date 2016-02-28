@@ -4,6 +4,52 @@ import (
 	"testing"
 )
 
+// ----------------------------------------------------------------------------
+// Sortable Interface
+// ----------------------------------------------------------------------------
+type SortableSequence []int
+
+func (s SortableSequence) Len() int {
+	return len(s)
+}
+
+func (s SortableSequence) Less(i, j int) bool {
+	if s[i] < s[j] {
+		return true
+	}
+	return false
+}
+
+func (s SortableSequence) Greater(i, j int) bool {
+	if s[i] > s[j] {
+		return true
+	}
+	return false
+}
+
+func (s SortableSequence) Equal(i, j int) bool {
+	if s[i] == s[j] {
+		return false
+	}
+	return true
+}
+
+func (s SortableSequence) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
+var seq1 = SortableSequence{3, 7, 6, 5, 4, 2, 1}
+var srt1 = SortableSequence{1, 2, 3, 4, 5, 6, 7}
+
+var seq2 = SortableSequence{9, 8, 7, 6, 5, 4, 3, 2, 1}
+var srt2 = SortableSequence{1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+var seq3 = SortableSequence{8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1}
+var srt3 = SortableSequence{1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8}
+
+// ----------------------------------------------------------------------------
+// Partition Tests
+// ----------------------------------------------------------------------------
 func TestPartition1(t *testing.T) {
 	test := []int{3, 7, 6, 5, 4, 2, 1}
 	expected := []int{1, 2, 3, 5, 4, 6, 7}
@@ -43,6 +89,9 @@ func TestRandPartition1(t *testing.T) {
 	}
 }
 
+// ----------------------------------------------------------------------------
+// Sort Tests
+// ----------------------------------------------------------------------------
 func TestQuicksort(t *testing.T) {
 	test := []int{6, 5, 1, 3, 9, 2, 8, 6, 6, 5}
 	expected := []int{1, 2, 3, 5, 5, 6, 6, 6, 8, 9}
