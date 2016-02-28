@@ -2,21 +2,53 @@
 // such as quicksort, mergesort, lower bound, upper bound, binary search, etc.
 package algorithms
 
-//package main
+// package main
 
 import (
 	"fmt"
 	"math/rand"
 )
 
+/*
+type SortableSequence []int
+
+func (s *SortableSequence) Len() int {
+	return len((*s))
+}
+
+func (s *SortableSequence) Less(i, j int) bool {
+	if (*s)[i] < (*s)[j] {
+		return true
+	}
+	return false
+}
+
+func (s *SortableSequence) Greater(i, j int) bool {
+	if (*s)[i] > (*s)[j] {
+		return true
+	}
+	return false
+}
+
+func (s *SortableSequence) Equal(i, j int) bool {
+	if (*s)[i] == (*s)[j] {
+		return true
+	}
+	return false
+}
+
+func (s *SortableSequence) Swap(i, j int) {
+	(*s)[i], (*s)[j] = (*s)[j], (*s)[i]
+}
+*/
 func main() {
 	seq1 := SortableSequence{3, 7, 6, 5, 4, 2, 1}
 	seq2 := SortableSequence{3, 7, 6, 5, 4, 2, 1}
 	fmt.Printf("starting: %v\n", seq1)
-	sortablePartition(seq1)
+	sortablePartition(&seq1)
 	fmt.Printf("result: %v\n", seq1)
 
-	fmt.Println("Trying regular partition")
+	fmt.Println("\nTrying regular partition\n")
 	fmt.Printf("starting: %v\n", seq2)
 	partition(seq2)
 	fmt.Printf("result: %v\n", seq2)
