@@ -2,55 +2,58 @@
 // such as quicksort, mergesort, lower bound, upper bound, binary search, etc.
 package algorithms
 
-// package main
+//package main
 
 import (
 	"fmt"
 	"math/rand"
 )
 
-/*
 type SortableSequence []int
 
-func (s *SortableSequence) Len() int {
-	return len((*s))
+func (s SortableSequence) Len() int {
+	return len(s)
 }
 
-func (s *SortableSequence) Less(i, j int) bool {
-	if (*s)[i] < (*s)[j] {
+func (s SortableSequence) Less(i, j int) bool {
+	if s[i] < s[j] {
 		return true
 	}
 	return false
 }
 
-func (s *SortableSequence) Greater(i, j int) bool {
-	if (*s)[i] > (*s)[j] {
+func (s SortableSequence) Greater(i, j int) bool {
+	if s[i] > s[j] {
 		return true
 	}
 	return false
 }
 
-func (s *SortableSequence) Equal(i, j int) bool {
-	if (*s)[i] == (*s)[j] {
+func (s SortableSequence) Equal(i, j int) bool {
+	if s[i] == s[j] {
 		return true
 	}
 	return false
 }
 
-func (s *SortableSequence) Swap(i, j int) {
-	(*s)[i], (*s)[j] = (*s)[j], (*s)[i]
+func (s SortableSequence) SubRange(i, j int) *Sortable {
+	return s[i:j]
 }
-*/
+
+func (s SortableSequence) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
 func main() {
 	seq1 := SortableSequence{3, 7, 6, 5, 4, 2, 1}
 	seq2 := SortableSequence{3, 7, 6, 5, 4, 2, 1}
 	fmt.Printf("starting: %v\n", seq1)
-	sortablePartition(&seq1)
+	Quicksort(seq1)
 	fmt.Printf("result: %v\n", seq1)
 
 	fmt.Println("\nTrying regular partition\n")
 	fmt.Printf("starting: %v\n", seq2)
-	partition(seq2)
+	StaticQuicksort(seq2)
 	fmt.Printf("result: %v\n", seq2)
 }
 
@@ -63,6 +66,7 @@ type Sortable interface {
 	Less(i, j int) bool
 	Greater(i, j int) bool
 	Equal(i, j int) bool
+	SubRange(i, j int) *Sortable
 	Swap(i, j int)
 }
 
@@ -90,8 +94,6 @@ func partition(v []int) int {
 	j := len(v) - 1
 
 	for {
-		fmt.Printf("v: %v\n", v)
-		fmt.Printf("(i, j)=(%d, %d)\n", i, j)
 		for v[i] < p {
 			i++
 		}
@@ -99,13 +101,11 @@ func partition(v []int) int {
 			j--
 		}
 		if i >= j {
-			fmt.Printf("%d >= %d\n", i, j)
 			return j
 		}
 		if v[i] == v[j] {
 			j--
 		}
-		fmt.Printf("Swapping %d and %d\n", i, j)
 		v[i], v[j] = v[j], v[i]
 	}
 	return j
@@ -118,8 +118,6 @@ func sortablePartition(s Sortable) int {
 	i := 0
 	j := s.Len() - 1
 	for {
-		fmt.Printf("s: %v\n", s)
-		fmt.Printf("(i, j)=(%d, %d)\n", i, j)
 		for s.Less(i, p) {
 			i++
 		}
@@ -127,15 +125,17 @@ func sortablePartition(s Sortable) int {
 			j--
 		}
 		if i >= j {
-			fmt.Printf("%d >= %d\n", i, j)
 			return j
 		}
 		if s.Equal(i, j) {
 			j--
 		}
-		fmt.Printf("Swapping %d and %d\n", i, j)
+		if i == p {
+			p = j
+		} else if j == p {
+			p = i
+		}
 		s.Swap(i, j)
-		p = j
 	}
 	return j
 }
@@ -190,19 +190,19 @@ func sortableRandPartition(s Sortable) int {
 }
 
 // Quicksort implementation using parition
-func Quicksort(v []int) {
-	p := partition(v)
-	if len(v) == 2 {
+func Quicksort(s Sortable) {
+	p := sortablePartition(s)
+	if s.Len() <= 2 {
 		return
 	}
-	fmt.Printf("p: %d\nv: %v\n", p, v)
+	fmt.Printf("p: %d\nv: %v\n", p, s)
 	fmt.Println("Starting left recursive call...")
 	if p > 0 {
-		Quicksort(v[:p])
+		Quicksort(s)
 	}
 	fmt.Println("Starting right recursive call...")
-	if p < len(v)-1 {
-		Quicksort(v[p+1:])
+	if p < s.Len()-1 {
+		Quicksort(s.SubRange(p, s.Len()-1))
 	}
 }
 
