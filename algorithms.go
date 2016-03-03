@@ -9,6 +9,7 @@ import (
 	"math/rand"
 )
 
+/*
 type SortableSequence []int
 
 func (s SortableSequence) Len() int {
@@ -56,7 +57,7 @@ func main() {
 	StaticQuicksort(seq2)
 	fmt.Printf("result: %v\n", seq2)
 }
-
+*/
 // Sortable is an interface for data that is sortable. It works by defining
 // functions for getting the data length, determining the order of two data
 // items given their indices, and a swap functiont that swaps the items
