@@ -36,7 +36,7 @@ func (s SortableSequence) Equal(i, j int) bool {
 	return false
 }
 
-func (s SortableSequence) SubRange(i, j int) *Sortable {
+func (s SortableSequence) SubRange(i, j int) Sortable {
 	return s[i:j]
 }
 
@@ -66,7 +66,7 @@ type Sortable interface {
 	Less(i, j int) bool
 	Greater(i, j int) bool
 	Equal(i, j int) bool
-	SubRange(i, j int) *Sortable
+	SubRange(i, j int) Sortable
 	Swap(i, j int)
 }
 
