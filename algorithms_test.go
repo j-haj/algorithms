@@ -20,27 +20,13 @@ func (s SortableSequence) Less(i, j int) bool {
 	return false
 }
 
-func (s SortableSequence) Greater(i, j int) bool {
-	if s[i] > s[j] {
-		return true
-	}
-	return false
-}
-
-func (s SortableSequence) Equal(i, j int) bool {
-	if s[i] == s[j] {
-		return true
-	}
-	return false
-}
-
 func (s SortableSequence) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
 func isSorted(s Sortable) bool {
 	for i := 0; i < s.Len()-2; i++ {
-		if !s.Less(i, i+1) && !s.Equal(i, i+1) {
+		if !s.Less(i, i+1) && !(!s.Less(i, i+1) && !s.Less(i+1, i)) {
 			return false
 		}
 	}
@@ -126,20 +112,20 @@ func TestStaticQuicksort2(t *testing.T) {
 func TestQuicksort1(t *testing.T) {
 	Quicksort(seq1, 0, seq1.Len()-1, 0)
 	if !isSorted(seq1) {
-		t.Fatalf("expected seq1 = %v; got seq1 = %v.", seq1, srt1)
+		t.Fatalf("expected seq1 = %v; got seq1 = %v.", srt1, seq1)
 	}
 }
 
 func TestQuicksort2(t *testing.T) {
 	Quicksort(seq2, 0, seq2.Len()-1, 0)
 	if !isSorted(seq2) {
-		t.Fatalf("expected seq2 = %v; got seq2 = %v", seq2, srt2)
+		t.Fatalf("expected seq2 = %v; got seq2 = %v", srt2, seq2)
 	}
 }
 
 func TestQuicksort3(t *testing.T) {
 	Quicksort(seq3, 0, seq3.Len()-1, 0)
 	if !isSorted(seq3) {
-		t.Fatalf("expected seq3 = %v; got seq3 = %v.", seq3, srt3)
+		t.Fatalf("expected seq3 = %v; got seq3 = %v.", srt3, seq3)
 	}
 }

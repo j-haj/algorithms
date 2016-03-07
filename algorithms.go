@@ -15,8 +15,6 @@ import (
 type Sortable interface {
 	Len() int
 	Less(i, j int) bool
-	Greater(i, j int) bool
-	Equal(i, j int) bool
 	Swap(i, j int)
 }
 
@@ -68,13 +66,13 @@ func sortablePartition(s Sortable, i, j, p int) int {
 		for s.Less(i, p) {
 			i++
 		}
-		for s.Greater(j, p) {
+		for s.Less(p, j) {
 			j--
 		}
 		if i >= j {
 			return j
 		}
-		if s.Equal(i, j) {
+		if !s.Less(i, j) && !s.Less(j, i) {
 			j--
 		}
 		if i == p {
@@ -128,7 +126,7 @@ func sortableRandPartition(s Sortable) int {
 		if i >= j {
 			return j
 		}
-		if !s.Equal(i, j) {
+		if !s.Less(i, j) && !s.Less(j, i) {
 			j--
 		}
 		s.Swap(i, j)
